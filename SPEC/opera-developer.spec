@@ -26,14 +26,17 @@ Opera Developer
 %setup -T -n %{name} -c
 
 %build
-ar p $RPM_SOURCE_DIR/%{deb_openssl} data.tar.xz | xz -d -9 | tar x -C $RPM_BUILD_DIR
+# nothing to do
 
 %install
 [ -n "$RPM_BUILD_ROOT" -a "$RPM_BUILD_ROOT" != / ] && rm -rf $RPM_BUILD_ROOT
 mkdir $RPM_BUILD_ROOT
 
+# provide openssl-1.0.0
+ar p %{SOURCE1} data.tar.xz | xz -d | tar x -C $RPM_BUILD_DIR
+
 # extract data from the deb package
-ar p $RPM_SOURCE_DIR/%{deb_opera} data.tar.xz | xz -d -9 | tar x -C $RPM_BUILD_ROOT
+ar p %{SOURCE0} data.tar.xz | xz -d | tar x -C $RPM_BUILD_ROOT
 
 # rename libdir
 mv $RPM_BUILD_ROOT/usr/lib/x86_64-linux-gnu/%{name} $RPM_BUILD_ROOT/usr/lib/
@@ -77,6 +80,9 @@ done
 * Mon Aug 11 2014 Moritz Barsnick <moritz+rpm@barsnick.net> 25.0.1583.1-1
 - update to 25.0.1583.1
 - use latest openssl package from Ubuntu
+- use %%{SOURCE} macros
+- unpack openssl in %%install phase
+- drop xz compression flag for decompression
 
 * Mon Jun 30 2014 Nobuyuki Ito <nobu.1026@gmail.com> - 24.0.1543.0
 - version up
