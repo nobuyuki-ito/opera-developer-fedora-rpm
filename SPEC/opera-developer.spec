@@ -1,5 +1,5 @@
 %define deb_opera %{name}_%{version}_amd64.deb
-%define deb_openssl libssl1.0.0_1.0.1f-1ubuntu2.4_amd64.deb
+%define deb_openssl libssl1.0.0_1.0.1f-1ubuntu2.5_amd64.deb
 
 Summary: Opera Developer
 Name: opera-developer
@@ -76,6 +76,7 @@ done
 %changelog
 * Mon Aug 11 2014 Moritz Barsnick <moritz+rpm@barsnick.net> 25.0.1583.1-1
 - update to 25.0.1583.1
+- use latest openssl package from Ubuntu
 
 * Mon Jun 30 2014 Nobuyuki Ito <nobu.1026@gmail.com> - 24.0.1543.0
 - version up
