@@ -1,6 +1,12 @@
 %define deb_opera %{name}_%{version}_amd64.deb
 %define deb_openssl libssl1.0.0_1.0.1f-1ubuntu2.5_amd64.deb
 
+# these Requires are provided internally because of our bundling or symlinking
+%global _excl lib(ssl|crypto|udev)\\.so
+%global __requires_exclude %{_excl}
+# they're provided internally, but not for other packages please
+%global __provides_exclude_from ^.*/%{_excl}.*$
+
 Summary: Opera Developer
 Name: opera-developer
 Version: 25.0.1583.1
@@ -62,7 +68,7 @@ done
 [ -n "$RPM_BUILD_ROOT" -a "$RPM_BUILD_ROOT" != / ] && rm -rf $RPM_BUILD_ROOT
 
 %post
-# create symlink for libudev
+# create symlink for libudev.so.0
 [ -e %{_libdir}/libudev.so.1 ] && ln -fs %{_libdir}/libudev.so.1 %{_libdir}/%{name}/lib/libudev.so.0
 
 %postun
@@ -82,8 +88,10 @@ done
 - use %%{SOURCE} macros
 - unpack openssl in %%install phase
 - drop xz compression flag for decompression
-- drop Packager tag (should be provided by building tool chain) and BRs (they're all
-  pre-provided on Fedora)
+- drop Packager tag (should be provided by rpmbuild tool chain) and BRs
+  (they're all pre-provided on Fedora)
+- fix Requires and Provides, in order to not require --no-deps and to not
+  provide bogus stuff
 
 * Mon Jun 30 2014 Nobuyuki Ito <nobu.1026@gmail.com> - 24.0.1543.0
 - version up
