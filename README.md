@@ -12,14 +12,17 @@ Check http://packages.ubuntu.com/trusty-updates/libssl1.0.0
 
 wget http://<i>example.com/somewhere</i>
 
+Alternatively, use spectool from Fedora's rpmdevtools package:
+spectool -g -A opera-developer.spec
+
 # build rpm package
 rpmbuild -bb opera-developer.spec
 
 # install rpm
-rpm -ivh --nodeps opera-developer-*.x86_64.rpm
+sudo yum localinstall opera-developer-*.x86_64.rpm
 
 # start to use opera developer
-Just click icon or
+Just click icon or run
 
 $ /usr/bin/opera-developer
 
