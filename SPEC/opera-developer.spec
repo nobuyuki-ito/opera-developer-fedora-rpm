@@ -45,7 +45,7 @@ mv $RPM_BUILD_ROOT/usr/lib $RPM_BUILD_ROOT%{_libdir}
 
 # create new symlink
 rm -f $RPM_BUILD_ROOT%{_bindir}/%{name}
-ln -sr $RPM_BUILD_ROOT%{_libdir}/%{name}/opera $RPM_BUILD_ROOT%{_bindir}/%{name}
+ln -sr $RPM_BUILD_ROOT%{_libdir}/%{name}/%{name} $RPM_BUILD_ROOT%{_bindir}/%{name}
 
 # delete some directories that is not needed on Fedora
 rm -rf $RPM_BUILD_ROOT%{_datadir}/{lintian,menu}
@@ -79,6 +79,7 @@ done
 %changelog
 * Mon Aug 11 2014 Moritz Barsnick <moritz+rpm@barsnick.net> 25.0.1583.1-1
 - update to 25.0.1583.1
+- fix symlink to binary
 - use latest openssl package from Ubuntu
 - use %%{SOURCE} macros
 - unpack openssl in %%install phase
