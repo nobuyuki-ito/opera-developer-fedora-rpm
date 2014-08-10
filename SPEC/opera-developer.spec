@@ -3,7 +3,7 @@
 
 Summary: Opera Developer
 Name: opera-developer
-Version: 24.0.1543.0
+Version: 25.0.1583.1
 Release: 1%{dist}
 License: Proprietary
 Group: Applications/Internet
@@ -74,6 +74,9 @@ done
 %{_datadir}
 
 %changelog
+* Mon Aug 11 2014 Moritz Barsnick <moritz+rpm@barsnick.net> 25.0.1583.1-1
+- update to 25.0.1583.1
+
 * Mon Jun 30 2014 Nobuyuki Ito <nobu.1026@gmail.com> - 24.0.1543.0
 - version up
 - change libssl/libcrypto install dir
