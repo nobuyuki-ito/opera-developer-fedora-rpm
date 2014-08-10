@@ -12,11 +12,9 @@ Source0: http://get.geo.opera.com/pub/opera-developer/%{version}/linux/%{deb_ope
 # download ubuntu package from http://packages.ubuntu.com/trusty-updates/libssl1.0.0
 Source1: http://mirrors.kernel.org/ubuntu/pool/main/o/openssl/%{deb_openssl}
 Vendor: Opera Software ASA
-Packager: Nobuyuki Ito
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: x86_64
 Requires: systemd-libs
-BuildRequires: binutils xz tar
 
 %description
 Opera Developer
@@ -84,6 +82,8 @@ done
 - use %%{SOURCE} macros
 - unpack openssl in %%install phase
 - drop xz compression flag for decompression
+- drop Packager tag (should be provided by building tool chain) and BRs (they're all
+  pre-provided on Fedora)
 
 * Mon Jun 30 2014 Nobuyuki Ito <nobu.1026@gmail.com> - 24.0.1543.0
 - version up
