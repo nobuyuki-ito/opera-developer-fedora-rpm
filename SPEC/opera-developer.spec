@@ -20,6 +20,7 @@ Source1: http://mirrors.kernel.org/ubuntu/pool/main/o/openssl/%{deb_openssl}
 Vendor: Opera Software ASA
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: x86_64
+Requires: %{_libdir}/libudev.so.1
 Requires: systemd-libs
 
 %description
@@ -69,7 +70,7 @@ done
 
 %post
 # create symlink for libudev.so.0
-[ -e %{_libdir}/libudev.so.1 ] && ln -fs %{_libdir}/libudev.so.1 %{_libdir}/%{name}/lib/libudev.so.0
+ln -fs %{_libdir}/libudev.so.1 %{_libdir}/%{name}/lib/libudev.so.0
 
 %postun
 [ -L %{_libdir}/%{name}/lib/libudev.so.0 ] && rm -f %{_libdir}/%{name}/lib/libudev.so.0
