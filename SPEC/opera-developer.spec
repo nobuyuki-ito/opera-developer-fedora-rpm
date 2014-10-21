@@ -1,9 +1,9 @@
 %define deb_opera %{name}_%{version}_amd64.deb
-%define deb_openssl libssl1.0.0_1.0.1f-1ubuntu2.4_amd64.deb
+%define deb_openssl libssl1.0.0_1.0.1f-1ubuntu2.7_amd64.deb
 
 Summary: Opera Developer
 Name: opera-developer
-Version: 24.0.1543.0
+Version: 26.0.1655.0
 Release: 1%{dist}
 License: Proprietary
 Group: Applications/Internet
@@ -17,6 +17,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: x86_64
 Requires: systemd-libs
 BuildRequires: binutils xz tar
+Provides: libcrypto.so.1.0.0()(64bit) libudev.so.0()(64bit)
 
 %description
 Opera Developer
@@ -42,7 +43,7 @@ mv $RPM_BUILD_ROOT/usr/lib $RPM_BUILD_ROOT%{_libdir}
 
 # create new symlink
 rm -f $RPM_BUILD_ROOT%{_bindir}/%{name}
-ln -sr $RPM_BUILD_ROOT%{_libdir}/%{name}/opera $RPM_BUILD_ROOT%{_bindir}/%{name}
+ln -sr $RPM_BUILD_ROOT%{_libdir}/%{name}/%{name} $RPM_BUILD_ROOT%{_bindir}/%{name}
 
 # delete some directories that is not needed on Fedora
 rm -rf $RPM_BUILD_ROOT%{_datadir}/{lintian,menu}
@@ -74,6 +75,20 @@ done
 %{_datadir}
 
 %changelog
+* Wed Oct 22 2014 Nobuyuki Ito <nobu.1026@gmail.com> - 26.0.1655.0
+- version up
+
+* Sat Sep 27 2014 Nobuyuki Ito <nobu.1026@gmail.com> - 26.0.1632.0
+- version up
+- fix missing library requires
+- fix missing symlink to opera-developer
+
+* Sat Aug 30 2014 Nobuyuki Ito <nobu.1026@gmail.com> - 25.0.1597.0
+- version up
+
+* Mon Jul 21 2014 Nobuyuki Ito <nobu.1026@gmail.com> - 24.0.1558.3
+- version up
+
 * Mon Jun 30 2014 Nobuyuki Ito <nobu.1026@gmail.com> - 24.0.1543.0
 - version up
 - change libssl/libcrypto install dir
