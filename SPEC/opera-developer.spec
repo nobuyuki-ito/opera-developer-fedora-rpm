@@ -4,7 +4,7 @@
 Summary: Opera Developer
 Name: opera-developer
 Version: 26.0.1655.0
-Release: 1%{dist}
+Release: 2%{dist}
 License: Proprietary
 Group: Applications/Internet
 URL: http://get.geo.opera.com/pub/opera-developer/
@@ -16,7 +16,7 @@ Packager: Nobuyuki Ito
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: x86_64
 Requires: systemd-libs
-BuildRequires: binutils xz tar
+BuildRequires: binutils xz tar systemd-libs
 Provides: libcrypto.so.1.0.0()(64bit) libudev.so.0()(64bit)
 
 %description
@@ -58,15 +58,11 @@ for i in libcrypto libssl; do
 	cp -p $RPM_BUILD_DIR/lib/x86_64-linux-gnu/$i.so.* $RPM_BUILD_ROOT%{_libdir}/%{name}/lib
 done
 
+# create symlink to libudev.so
+ln -sL %{_libdir}/libudev.so.1 $RPM_BUILD_ROOT%{_libdir}/%{name}/lib/libudev.so.0
+
 %clean
 [ -n "$RPM_BUILD_ROOT" -a "$RPM_BUILD_ROOT" != / ] && rm -rf $RPM_BUILD_ROOT
-
-%post
-# create symlink for libudev
-[ -e %{_libdir}/libudev.so.1 ] && ln -fs %{_libdir}/libudev.so.1 %{_libdir}/%{name}/lib/libudev.so.0
-
-%postun
-[ -L %{_libdir}/%{name}/lib/libudev.so.0 ] && rm -f %{_libdir}/%{name}/lib/libudev.so.0
 
 %files
 %defattr(-,root,root)
@@ -75,7 +71,11 @@ done
 %{_datadir}
 
 %changelog
-* Wed Oct 22 2014 Nobuyuki Ito <nobu.1026@gmail.com> - 26.0.1655.0
+* Wed Oct 22 2014 Nobuyuki Ito <nobu.1026@gmail.com> - 26.0.1655.0-2
+- delete post and postun section
+- install libudev.so.0 symlink in install section
+
+* Wed Oct 22 2014 Nobuyuki Ito <nobu.1026@gmail.com> - 26.0.1655.0-1
 - version up
 
 * Sat Sep 27 2014 Nobuyuki Ito <nobu.1026@gmail.com> - 26.0.1632.0

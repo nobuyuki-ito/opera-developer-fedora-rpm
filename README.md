@@ -16,7 +16,7 @@ wget http://<i>example.com/somewhere</i>
 rpmbuild -bb opera-developer.spec
 
 # install rpm
-rpm -ivh --nodeps opera-developer-*.x86_64.rpm
+yum localinstall opera-developer-*.x86_64.rpm
 
 # start to use opera developer
 Just click icon or
